@@ -1,6 +1,6 @@
 import pygame
 from settings import *
-from support import*
+from support import import_folder
 
 class Player(pygame.sprite.Sprite):
 
@@ -9,12 +9,12 @@ class Player(pygame.sprite.Sprite):
         super().__init__(group)
 
         self.import_assets()
-        self.status = 'down_idle'
+        self.status = 'up'
         self.frame_index = 0
 
         # temp character
         self.image = self.animations[self.status][self.frame_index]
-        self.image.fill('green')
+        #self.image.fill('green')
         self.rect = self.image.get_rect(center = pos)
 
         # direction and position stuff
@@ -26,10 +26,10 @@ class Player(pygame.sprite.Sprite):
 
     def import_assets(self):
 
-        self.animations = {'up': [], 'down': [], 'left': [], 'right': [], 'right_idle': [], 'left_idle': [], 'up_idle': [], 'down_idle': []}
+        self.animations = {'up': [], 'down': [], 'left': [], 'right': []}
 
         for animation in self.animations.keys():
-            full_path = '../graphics/character/' + animation
+            full_path = './graphics/animations/' + animation
             self.animations[animation] = import_folder(full_path)
         print(self.animations)
 

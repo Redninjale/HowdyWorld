@@ -7,8 +7,14 @@ def import_folder(path):
     for _, __, img_files in walk(path):
         for image in img_files:
             full_path = path + '/' + image
-            print(full_path)
-            image_surf = pygame.image.load(full_path).convert_alpha()
+            image_surf = pygame.image.load('./graphics/animations/right/2.png')
             surface_list.append(image_surf)
 
+    # print(surface_list)
     return surface_list
+
+animations = {'up': [], 'down': [], 'left': [], 'right': []}
+
+for animation in animations.keys():
+    full_path = './graphics/animations/' + animation
+    animations[animation] = import_folder(full_path)

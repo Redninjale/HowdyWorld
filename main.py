@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import *
 from level import Level
+from support import import_folder
 
 class Game:
     def __init__(self):
@@ -11,7 +12,7 @@ class Game:
         self.level = Level()
 
     def run(self):
-        while True: 
+        while True:
             for event in pygame.event.get(): #if we ever want to quit
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -19,10 +20,11 @@ class Game:
 
             dt = self.clock.tick ()/1000
             self.level.run(dt)
+            
+            print(self.animations)
             pygame.display.update() 
- 
+
 
 if __name__ == '__main__':
     game = Game()
-    x = Game()
     game.run()
