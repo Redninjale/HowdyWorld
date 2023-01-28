@@ -12,7 +12,7 @@ class Game:
 
     def run(self):
         while True: 
-            for event in pygame.event.get(): #if we ever want to quiz
+            for event in pygame.event.get(): #if we ever want to quit
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit() #deinitialize
