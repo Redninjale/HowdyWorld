@@ -1,7 +1,7 @@
 import pygame, sys
 from settings import *
 from level import Level
-from support import import_folder
+from support import import_folder # this too
 
 class Game:
     def __init__(self):
@@ -20,8 +20,6 @@ class Game:
 
             dt = self.clock.tick ()/1000
             self.level.run(dt)
-            
-            print(self.animations)
             pygame.display.update() 
 
 
