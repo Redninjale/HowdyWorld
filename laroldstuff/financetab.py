@@ -9,8 +9,8 @@ class Finance():
         self.salary = 1
         self.randomEvent = 0
 
-    def payDay():
+    def payDay(self):
         self.balance +=self.salary
         self.salary = 1
-    def salaryIncrease():
+    def salaryIncrease(self):
         self.salary +=1

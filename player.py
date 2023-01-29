@@ -34,6 +34,9 @@ class Player(pygame.sprite.Sprite):
         self.hitbox = self.rect.copy().inflate((-126,-70))
         self.collision_sprites = collision_sprites
 
+        #interaction
+        # self.interaction = interaction
+        
         # happiness bar
         self.happiness = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         self.happiness_index = 10
@@ -51,7 +54,8 @@ class Player(pygame.sprite.Sprite):
         elif (self.happiness_index > 10):
             self.happiness = 10      
         else:
-            self.current_happiness = self.happiness[self.happiness_index]      
+            self.current_happiness = self.happiness[self.happiness_index]
+                  
 
     def hunger_change(self, amount):
         self.hunger_index += amount
@@ -88,7 +92,6 @@ class Player(pygame.sprite.Sprite):
             self.status = 'down'
         else:
             self.direction.y = 0
-        
 
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
@@ -102,6 +105,15 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_ESCAPE]:
             self.pause = Pause()
             self.pause.displayMenu()
+        
+        # if keys[pygame.K_RETURN]:
+        #     collided_interaction_sprite = pygame.sprite.spritecollide(self, self.interaction, False)
+        #     # if collided exists
+        #     if collided_interaction_sprite:
+        #         if collided_interaction_sprite[0].name == 'Trader':
+        #             pass
+        #         else:
+        #             self.status = 'down'
     
     def collision(self, direction):
         for sprite in self.collision_sprites.sprites():

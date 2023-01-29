@@ -2,12 +2,13 @@
 class bankInteractions(balance):
 
     def __init__(self):
-    
+        owo =1
 
     def takeLoan(money_requested):
         if money_requested > balance*10:
             print('That is too much money! try a different number!')
         else: 
+            owo = 1
 
 
     def menu():
