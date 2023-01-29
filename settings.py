@@ -6,5 +6,7 @@ TILE_SIZE = 64
 
 # OVERLAY POSITIONS
 OVERLAY_POSITIONS = {
-    'happiness' : (40, SCREEN_HEIGHT - 15),
-    'hunger' : (40, SCREEN_HEIGHT - 40)}
+    'happiness' : (15, 15),
+    'hunger' : (15, 50)}
+
+LAYERS = {'ground': 0, 'building bottom': 1, 'main': 2, 'building top': 3}

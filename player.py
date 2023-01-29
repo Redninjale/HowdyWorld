@@ -19,7 +19,7 @@ class Player(pygame.sprite.Sprite):
         self.image = self.animations[self.status][self.frame_index]
         
         self.rect = self.image.get_rect(center = pos)
-        #Collisions
+        self.z = LAYERS['main']
         
 
         # direction and position stuff
@@ -28,6 +28,9 @@ class Player(pygame.sprite.Sprite):
 
         # change speed below if needed
         self.speed = 200
+        
+        
+        #Collisions
         self.hitbox = self.rect.copy().inflate((-126,-70))
         self.collision_sprites = collision_sprites
 
