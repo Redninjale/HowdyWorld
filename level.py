@@ -22,7 +22,7 @@ class Level:
         tmx_data = load_pygame('./graphics/mapping/tmx/maptesting.tmx')
 
         # house
-        print(type(tmx_data.get_layer_by_name('bottom')))
+        #print(type(tmx_data.get_layer_by_name('bottom')))
         for layer in ['bottom', 'roads_grass']:
            for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
                Generic((x * TILE_SIZE,y * TILE_SIZE), surf, self.all_sprites, LAYERS['bottom'])

@@ -5,7 +5,6 @@ from settings import *
 class Overlay:
     def __init__(self, player):
         # general setup
-        # overlay_path = './graphics/overlay/'
         self.display_surface = pygame.display.get_surface()
         self.player = player
 
@@ -32,44 +31,41 @@ class Overlay:
         self.display_surface.blit(hunger_visual, hunger_rect)
 
         # money
-        # money_surf = pygame.image.load('./graphics/animations/messages/blank money.png').convert_alpha()
-        # money_surf = pygame.transform.scale(money_surf, (100, 80))
-        # money_rect = money_surf.get_rect(topleft = OVERLAY_POSITIONS['money'])
-        # self.display_surface.blit(money_surf, money_rect)
-        # money_text = self.myfont.render(str(self.money), True, 'black')
-        # text_rect = money_text.get_rect(topleft = OVERLAY_POSITIONS['money'])
-        # self.display_surface.blit(money_text, text_rect)
-        # icon_surf = pygame.image.load('./graphics/animations/messages/coin icon.png').convert_alpha()
-        # icon_surf = pygame.transform.scale(icon_surf, (80, 80))
-        # self.display_surface.blit(icon_surf, (1000, 15))
+        money_surf = pygame.image.load('./graphics/animations/messages/blank money.png').convert_alpha()
+        money_surf = pygame.transform.scale(money_surf, (280, 80))
+        money_rect = money_surf.get_rect(topleft = OVERLAY_POSITIONS['money'])
+        self.display_surface.blit(money_surf, money_rect)
+
+        money_text = self.myfont.render(str(self.player.money), True, 'white')
+        money_rect = money_text.get_rect(topright = OVERLAY_POSITIONS['money_text'])
+        self.display_surface.blit(money_text, money_rect)
+
+        icon_surf = pygame.image.load('./graphics/animations/messages/coin icon.png').convert_alpha()
+        icon_surf = pygame.transform.scale(icon_surf, (50, 50))
+        self.display_surface.blit(icon_surf, (1040, 27))
 
 
+        self.text("test", 1)
+        self.text_button("button1", 1)
+        self.text_button("button2", 2)
         # buttons
         # need to know where to pull # of buttons from lol
-        buttonspresent = 0
-        pressed = False
+        buttonspresent = 2 # need to change
         if (buttonspresent >= 1):
             shadow_surf = pygame.image.load('./graphics/animations/messages/button shadow only.png').convert_alpha()
-            shadow_surf = pygame.transform.scale(shadow_surf, (1080, 60))
-            while (not pressed):
-                if (pygame.mouse.get_pos[0] >= 100 and pygame.mouse.get_pos[0] <= 1180):
-                    ypos1 = 680 - 1 * 70
-                    ypos2 = ypos1 - 70
-                    if (pygame.mouse.get_pos[1] <= 680 and pygame.mouse.get_pos[1] >= 620):
-                        shadow_rect = shadow_surf.get_rect(topleft = (99, 680))
-                        if (pygame.mouse.get_pressed):
-                            self.display_surface.blit(shadow_surf, shadow_rect)
-                            pressed = True
-                    if (pygame.mouse.get_pos[1] <= 610 and pygame.mouse.get_pos[1] >= 550):
-                        shadow_rect = shadow_surf.get_rect(topleft = (99, 610))
-                        if (pygame.mouse.get_pressed):
-                            self.display_surface.blit(shadow_surf, shadow_rect)
-                            pressed = True
-                    if (pygame.mouse.get_pos[1] <= 540 and pygame.mouse.get_pos[1] >= 480):
-                        shadow_rect = shadow_surf.get_rect(topleft = (99, 610))
-                        if (pygame.mouse.get_pressed):
-                            self.display_surface.blit(shadow_surf, shadow_rect)
-                            pressed = True
+            shadow_surf = pygame.transform.scale(shadow_surf, (1060, 60))
+            if (pygame.mouse.get_pos()[0] >= 100 and pygame.mouse.get_pos()[0] <= 1180):
+                if (pygame.mouse.get_pos()[1] <= 560 and pygame.mouse.get_pos()[1] >= 500):
+                    shadow_rect = shadow_surf.get_rect(topleft = (85, 525))
+                    self.display_surface.blit(shadow_surf, shadow_rect)
+                    # if (pygame.event.get() == pygame.MOUSEBUTTONDOWN):
+                    #     print('pressed 1')
+                if (pygame.mouse.get_pos()[1] <= 650 and pygame.mouse.get_pos()[1] >= 580):
+                    shadow_rect = shadow_surf.get_rect(topleft = (85, 615))
+                    self.display_surface.blit(shadow_surf, shadow_rect)
+                    # if (pygame.event.get() and pygame.mouse.get_pressed()):
+                    #     print('pressed 2')
+                
                     
 
     def text(self, str, line):
@@ -82,11 +78,11 @@ class Overlay:
         self.display_surface.blit(mytext, (120, 370 + 56 * line)) # 56 is font size + 8 for line breaks
 
     def text_button(self, str, num):
-        button_surf = pygame.image.load('./graphics/animations/messages/bit button.png').convert_alpha()
-        button_surf = pygame.transform.scale(button_surf, (1080, 60))
-        button_rect = button_surf.get_rect(topleft = (100, 680 - (num * 70)))
+        button_surf = pygame.image.load('./graphics/animations/messages/big button.png').convert_alpha()
+        button_surf = pygame.transform.scale(button_surf, (1080, 80))
+        button_rect = button_surf.get_rect(topleft = (100, 680 - (num * 90)))
         self.display_surface.blit(button_surf, button_rect)
         buttontext = self.myfont.render(str, True, 'white')
-        self.display_surface.blit(buttontext, (120, 700 - (num * 70)))
+        self.display_surface.blit(buttontext, (135, 690 - (num * 90)))
         
        

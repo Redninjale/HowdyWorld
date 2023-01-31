@@ -67,7 +67,6 @@ class Player(pygame.sprite.Sprite):
             self.happiness = 10      
         else:
             self.current_happiness = self.happiness[self.happiness_index]
-                  
 
     def hunger_change(self, amount):
         self.hunger_index += amount
@@ -122,7 +121,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_ESCAPE]:
             self.pause = Pause()
             self.pause.displayMenu()
-        
+
         # if keys[pygame.K_RETURN]:
         #     collided_interaction_sprite = pygame.sprite.spritecollide(self, self.interaction, False)
         #     # if collided exists
@@ -136,27 +135,35 @@ class Player(pygame.sprite.Sprite):
         for sprite in self.collision_sprites.sprites():
             if hasattr(sprite, 'hitbox'):
                 if sprite.hitbox.colliderect(self.hitbox):
-                    self.posx.append(self.pos.x)
-                    self.posy.append(self.pos.y)
+                    # self.posx.append(self.pos.x)
+                    # self.posy.append(self.pos.y)
                     if direction == 'horizontal':
                         if self.direction.x > 0: #moving right
-                            self.hitbox.right = sprite.hitbox.left - PLAYER_WIDTH
+                            #self.hitbox.right = sprite.hitbox.left #- 8 #- PLAYER_WIDTH
+                            self.rect.centerx -= 2
+                            self.pos.x -= 2
                         if self.direction.x < 0: #moving left
-                            self.hitbox.left = sprite.hitbox.right + PLAYER_WIDTH
-                        self.rect.centerx = self.hitbox.centerx
-                        self.pos.x = self.hitbox.centerx
+                            #self.hitbox.left = sprite.hitbox.right #+ 8 #+ PLAYER_WIDTH
+                            self.rect.centerx += 2
+                            self.pos.x += 2
+                        # self.rect.centerx = self.hitbox.centerx
+                        # self.pos.x = self.hitbox.centerx
                     if direction == 'vertical':
                         if self.direction.y > 0: #moving down
-                            self.hitbox.bottom = sprite.hitbox.top + PLAYER_HEIGHT
+                            #self.hitbox.bottom = sprite.hitbox.top #- 8 #+ PLAYER_HEIGHT
+                            self.rect.centery -= 2
+                            self.pos.y -= 2
                         if self.direction.y < 0: #moving up
-                            self.hitbox.top = sprite.hitbox.bottom - PLAYER_HEIGHT
-                        self.rect.centery = self.hitbox.centery
-                        self.pos.y = self.hitbox.centery
-                    self.postposx.append(self.pos.x)
-                    self.postposy.append(self.pos.y)
-        else:
-            print(self.posx)
-            print(self.posy)
+                            #self.hitbox.top = sprite.hitbox.bottom #+ 8 #- PLAYER_HEIGHT
+                            self.rect.centery += 2
+                            self.pos.y += 2
+                        # self.rect.centery = self.hitbox.centery
+                        # self.pos.y = self.hitbox.centery
+                    # self.postposx.append(self.pos.x)
+                    # self.postposy.append(self.pos.y)
+        # else:
+        #     print(self.posx)
+        #     print(self.posy)
 
 
     def move(self,dt):
@@ -174,6 +181,7 @@ class Player(pygame.sprite.Sprite):
         self.collision('horizontal')
 
         self.pos.y += self.direction.y * self.speed * dt
+
         self.hitbox.centery = round(self.pos.y)
         # self.rect.centery = self.pos.y
         self.rect.centery = self.hitbox.centery
