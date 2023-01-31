@@ -154,9 +154,9 @@ class Player(pygame.sprite.Sprite):
                         self.pos.y = self.hitbox.centery
                     self.postposx.append(self.pos.x)
                     self.postposy.append(self.pos.y)
-        else:
-            print(self.posx)
-            print(self.posy)
+        # else:
+        #     print(self.posx)
+        #     print(self.posy)
 
 
     def move(self,dt):
