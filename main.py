@@ -2,6 +2,7 @@ import pygame, sys
 from settings import *
 from level import Level
 from support import import_folder # this too
+import matplotlib.pyplot as plt
 
 class Game:
     def __init__(self):
@@ -18,9 +19,10 @@ class Game:
                     pygame.quit()
                     sys.exit() #deinitialize
 
-            dt = self.clock.tick ()/1000
+            dt = self.clock.tick () / 1000
             self.level.run(dt)
             pygame.display.update()
+            
 
 
 if __name__ == '__main__':

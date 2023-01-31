@@ -2,11 +2,13 @@ import pygame
 from settings import *
 from support import import_folder # not here before
 from pause import Pause
+import matplotlib.pyplot as plt
+from settings import *
 
 
 class Player(pygame.sprite.Sprite):
 
-    def __init__(self, pos, group, collision_sprites):
+    def __init__(self, pos, group, collision_sprites, interaction):
 
         super().__init__(group)
 
@@ -29,13 +31,20 @@ class Player(pygame.sprite.Sprite):
         # change speed below if needed
         self.speed = 200
         
+        fig = plt.figure()
+        self.ax = fig.add_subplot(2,1,1)
+        self.posx = []
+        self.posy = []
+        self.postposx = []
+        self.postposy = []
+        
         
         #Collisions
-        self.hitbox = self.rect.copy().inflate((-126,-70))
+        self.hitbox = self.rect.copy().inflate((-126,-72))
         self.collision_sprites = collision_sprites
 
         #interaction
-        # self.interaction = interaction
+        self.interaction = interaction
         
         # happiness bar
         self.happiness = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -46,6 +55,9 @@ class Player(pygame.sprite.Sprite):
         self.hunger = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         self.hunger_index = 10
         self.current_hunger = self.hunger[self.hunger_index]
+
+        # money
+        self.money = 1000
 
     def happiness_change(self, amount):
         self.happiness_index += amount
@@ -63,6 +75,11 @@ class Player(pygame.sprite.Sprite):
             print('hungry :( dead')
         if (self.hunger_index > 10):
             self.current_hunger = self.hunger[self.hunger_index]
+
+    def money_change(self, amount):
+        self.money += amount
+        if (self.money <= 0):
+            print('broke :( dead')
 
     def import_assets(self):
 
@@ -119,20 +136,27 @@ class Player(pygame.sprite.Sprite):
         for sprite in self.collision_sprites.sprites():
             if hasattr(sprite, 'hitbox'):
                 if sprite.hitbox.colliderect(self.hitbox):
+                    self.posx.append(self.pos.x)
+                    self.posy.append(self.pos.y)
                     if direction == 'horizontal':
                         if self.direction.x > 0: #moving right
-                            self.hitbox.right = sprite.hitbox.left
+                            self.hitbox.right = sprite.hitbox.left - PLAYER_WIDTH
                         if self.direction.x < 0: #moving left
-                            self.hitbox.left = sprite.hitbox.right
+                            self.hitbox.left = sprite.hitbox.right + PLAYER_WIDTH
                         self.rect.centerx = self.hitbox.centerx
                         self.pos.x = self.hitbox.centerx
                     if direction == 'vertical':
                         if self.direction.y > 0: #moving down
-                            self.hitbox.bottom = sprite.hitbox.top
+                            self.hitbox.bottom = sprite.hitbox.top + PLAYER_HEIGHT
                         if self.direction.y < 0: #moving up
-                            self.hitbox.top = sprite.hitbox.bottom
+                            self.hitbox.top = sprite.hitbox.bottom - PLAYER_HEIGHT
                         self.rect.centery = self.hitbox.centery
-                        self.pos.y = self.hitbox.centery 
+                        self.pos.y = self.hitbox.centery
+                    self.postposx.append(self.pos.x)
+                    self.postposy.append(self.pos.y)
+        else:
+            print(self.posx)
+            print(self.posy)
 
 
     def move(self,dt):
@@ -150,7 +174,7 @@ class Player(pygame.sprite.Sprite):
         self.collision('horizontal')
 
         self.pos.y += self.direction.y * self.speed * dt
-        self.hitbox.centery = self.pos.y
+        self.hitbox.centery = round(self.pos.y)
         # self.rect.centery = self.pos.y
         self.rect.centery = self.hitbox.centery
         self.collision('vertical')

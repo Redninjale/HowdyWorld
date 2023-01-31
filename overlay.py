@@ -31,6 +31,19 @@ class Overlay:
         hunger_rect = hunger_visual.get_rect(topleft = OVERLAY_POSITIONS['hunger'])
         self.display_surface.blit(hunger_visual, hunger_rect)
 
+        # money
+        # money_surf = pygame.image.load('./graphics/animations/messages/blank money.png').convert_alpha()
+        # money_surf = pygame.transform.scale(money_surf, (100, 80))
+        # money_rect = money_surf.get_rect(topleft = OVERLAY_POSITIONS['money'])
+        # self.display_surface.blit(money_surf, money_rect)
+        # money_text = self.myfont.render(str(self.money), True, 'black')
+        # text_rect = money_text.get_rect(topleft = OVERLAY_POSITIONS['money'])
+        # self.display_surface.blit(money_text, text_rect)
+        # icon_surf = pygame.image.load('./graphics/animations/messages/coin icon.png').convert_alpha()
+        # icon_surf = pygame.transform.scale(icon_surf, (80, 80))
+        # self.display_surface.blit(icon_surf, (1000, 15))
+
+
         # buttons
         # need to know where to pull # of buttons from lol
         buttonspresent = 0
@@ -58,10 +71,6 @@ class Overlay:
                             self.display_surface.blit(shadow_surf, shadow_rect)
                             pressed = True
                     
-
-
-
-
 
     def text(self, str, line):
         if (line == 1):

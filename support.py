@@ -1,5 +1,6 @@
 from os import walk
 import pygame
+from settings import *
 
 def import_folder(path):
     surface_list = []
@@ -8,8 +9,8 @@ def import_folder(path):
         for image in img_files:
             full_path = path + '/' + image
             image_surf = pygame.image.load(full_path).convert_alpha()
-            # image_surf = pygame.transform.scale(image_surf, (50, 75))
-            image_surf = pygame.transform.scale(image_surf, (64, 64))
+            image_surf = pygame.transform.scale(image_surf, (PLAYER_WIDTH, PLAYER_HEIGHT))
+            # image_surf = pygame.transform.scale(image_surf, (32, 32))
 
             surface_list.append(image_surf)
     return surface_list

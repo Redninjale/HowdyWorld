@@ -2,7 +2,7 @@ import pygame
 from settings import *
 from player import Player
 from overlay import Overlay
-from sprites import Generic #, Interaction
+from sprites import *
 from pytmx.util_pygame import load_pygame
 import pytmx
 from support import *
@@ -12,7 +12,6 @@ class Level:
         self.display_surface = pygame.display.get_surface()
 
         self.all_sprites = CameraGroup()
-        # self.all_sprites = pygame.sprite.Group()
         self.collision_sprites = pygame.sprite.Group()
         self.interaction_sprites = pygame.sprite.Group()
 
@@ -20,42 +19,29 @@ class Level:
         self.overlay = Overlay(self.player)
 
     def setup(self):
-        #self.player = Player((640,360), self.all_sprites)
-        #Generic(
-          #  pos = (0.0),
-            #surf = pygame.image.load('../HowdyWorld/graphics/Modern_Exteriors_RPG_Maker_MV/Tileset_14_MV.png').convert_alpha(),
-            #groups = self.all_sprites,
-            #z=LAYERS['ground']
-        tmx_data = load_pygame('./graphics/mapping/maptesting.tmx')
+        tmx_data = load_pygame('./graphics/mapping/tmx/maptesting.tmx')
 
         # house
-        for layer in ['ground']:
-           for x, y, surf in tmx_data.layers[0].tiles():
-               Generic((x * TILE_SIZE,y * TILE_SIZE), surf, self.all_sprites, LAYERS['building bottom'])
-
-        # for layer in ['HouseWalls', 'HouseFurnitureTop']:
-        #     for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
-        #         Generic((x * TILE_SIZE,y * TILE_SIZE), surf, self.all_sprites)
-
-        # #fence
-        # for x, y, surf in tmx_data.get_layer_by_name('Fence').tiles():
-        #     Generic((x * TILE_SIZE,y * TILE_SIZE), surf, self.all_sprites)
-
-        #Collision tiles
-        # for x, y, surf in tmx_data.get_layer_by_name('Collision').tiles():
-        #     Generic((x * TILE_SIZE, y * TILE_SIZE), pygame.Surface((TILE_SIZE, TILE_SIZE)), self.collision_sprites)
+        print(type(tmx_data.get_layer_by_name('bottom')))
+        for layer in ['bottom', 'roads_grass']:
+           for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
+               Generic((x * TILE_SIZE,y * TILE_SIZE), surf, self.all_sprites, LAYERS['bottom'])
         
+        for layer in ['background_buildings', 'buildings']:
+            for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
+               Generic((x * TILE_SIZE,y * TILE_SIZE), surf, [self.all_sprites] , LAYERS['building'])
+
+        # Collision tiles
+        for x, y, surf in tmx_data.get_layer_by_name('Collision').tiles():
+            Generic((x * TILE_SIZE, y * TILE_SIZE), pygame.Surface((TILE_SIZE, TILE_SIZE)), self.collision_sprites)
+
         # #Player
-        # for obj in tmx_data.get_layer_by_name('Player'):
-        #     if obj.name == 'Start':
-        #         self.player = Player(pos=(obj.x, obj.y), group=self.all_sprites, collision_sprites=self.collision_sprites, interaction=self.interaction_sprites)
-        #         if obj.name == 'Bed':
-        #             Interaction((obj.x, obj.y), (obj.width, obj.height), self.interaction_sprites, obj.name)
-        self.player = Player((640,360), self.all_sprites, self.collision_sprites)
-        
-        # for layer in ['ground']:
-        #     for x, y, surf in tmx_data.get_layer_by_name(layer).tiles():
-        #         Generic((x * TILE_SIZE,y * TILE_SIZE), surf, self.all_sprites, LAYERS['ground'])
+        for obj in tmx_data.get_layer_by_name('Player'):
+            if obj.name == 'Apartment':
+                self.player = Player(pos=(obj.x, obj.y), group=self.all_sprites, collision_sprites=self.collision_sprites, interaction=self.interaction_sprites)
+                if obj.name == 'Apartment':
+                    Interaction((obj.x, obj.y), (obj.width, obj.height), self.interaction_sprites, obj.name)
+        # self.player = Player((640,360), self.all_sprites, self.collision_sprites, self.interaction_sprites)
         
         Generic(
             pos = (0,0),
@@ -73,8 +59,8 @@ class Level:
         self.all_sprites.update(dt)
 
         self.overlay.display()
-        self.overlay.text('testing 1234567890', 1)
-        self.overlay.text('2nd line test', 2)
+        # self.overlay.text('testing 1234567890', 1)
+        # self.overlay.text('2nd line test', 2)
 
 class CameraGroup(pygame.sprite.Group):
     def __init__(self):
