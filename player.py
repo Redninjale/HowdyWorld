@@ -121,7 +121,7 @@ class Player(pygame.sprite.Sprite):
         if keys[pygame.K_ESCAPE]:
             self.pause = Pause()
             self.pause.displayMenu()
-        
+
         # if keys[pygame.K_RETURN]:
         #     collided_interaction_sprite = pygame.sprite.spritecollide(self, self.interaction, False)
         #     # if collided exists

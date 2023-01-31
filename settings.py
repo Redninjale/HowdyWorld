@@ -11,7 +11,8 @@ OVERLAY_POSITIONS = {
     'happiness' : (15, 15),
     'hunger' : (15, 50),
     'msgboard' : (70, 400),
-    'money' : (1100, 15)
+    'money' : (1000, 15),
+    'money_text' : (1240, 30)
     }
 
 LAYERS = {'ground': 0, 'bottom': 1, 'building': 2, 'main': 3, 'building top': 4}
