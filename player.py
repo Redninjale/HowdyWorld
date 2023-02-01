@@ -62,22 +62,25 @@ class Player(pygame.sprite.Sprite):
     def happiness_change(self, amount):
         self.happiness_index += amount
         if (self.happiness_index <= 0):
+            self.happiness_index = 0
             print('sad :( dead')
-        elif (self.happiness_index > 10):
-            self.happiness = 10      
-        else:
-            self.current_happiness = self.happiness[self.happiness_index]
+        elif (self.happiness_index >= 10):
+            self.happiness_index = 10
+        self.current_happiness = self.happiness[self.happiness_index]
 
     def hunger_change(self, amount):
         self.hunger_index += amount
         if (self.hunger_index <= 0):
+            self.hunger_index = 0
             print('hungry :( dead')
-        if (self.hunger_index > 10):
-            self.current_hunger = self.hunger[self.hunger_index]
+        elif (self.hunger_index >= 10):
+            self.hunger_index = 10
+        self.current_hunger = self.hunger[self.hunger_index]
 
     def money_change(self, amount):
         self.money += amount
         if (self.money <= 0):
+            # self.money = 0
             print('broke :( dead')
 
     def import_assets(self):
@@ -122,6 +125,28 @@ class Player(pygame.sprite.Sprite):
             self.pause = Pause()
             self.pause.displayMenu()
 
+        # testing stuff >
+
+        # if keys[pygame.K_1]:
+        #     self.happiness_change(-1)
+        
+        # if keys[pygame.K_2]:
+        #     self.happiness_change(1)
+
+        # if keys[pygame.K_3]:
+        #     self.hunger_change(-1)
+
+        # if keys[pygame.K_4]:
+        #     self.hunger_change(1)
+
+        # if keys[pygame.K_5]:
+        #     self.money_change(-100)
+        
+        # if keys[pygame.K_6]:
+        #     self.money_change(100)
+
+        
+
         # if keys[pygame.K_RETURN]:
         #     collided_interaction_sprite = pygame.sprite.spritecollide(self, self.interaction, False)
         #     # if collided exists
@@ -140,12 +165,12 @@ class Player(pygame.sprite.Sprite):
                     if direction == 'horizontal':
                         if self.direction.x > 0: #moving right
                             #self.hitbox.right = sprite.hitbox.left #- 8 #- PLAYER_WIDTH
-                            self.rect.centerx -= 2
-                            self.pos.x -= 2
+                            self.rect.centerx -= 3
+                            self.pos.x -= 3
                         if self.direction.x < 0: #moving left
                             #self.hitbox.left = sprite.hitbox.right #+ 8 #+ PLAYER_WIDTH
-                            self.rect.centerx += 2
-                            self.pos.x += 2
+                            self.rect.centerx += 3
+                            self.pos.x += 3
                         # self.rect.centerx = self.hitbox.centerx
                         # self.pos.x = self.hitbox.centerx
                     if direction == 'vertical':

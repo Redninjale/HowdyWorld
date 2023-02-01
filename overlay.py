@@ -45,25 +45,26 @@ class Overlay:
         self.display_surface.blit(icon_surf, (1040, 27))
 
 
-        self.text("test", 1)
+        # self.text("test", 1)
         self.text_button("button1", 1)
-        self.text_button("button2", 2)
+        # self.text_button("button2", 2)
         # buttons
         # need to know where to pull # of buttons from lol
-        buttonspresent = 2 # need to change
+        buttonspresent = 1 # need to change
         if (buttonspresent >= 1):
             shadow_surf = pygame.image.load('./graphics/animations/messages/button shadow only.png').convert_alpha()
             shadow_surf = pygame.transform.scale(shadow_surf, (1060, 60))
             if (pygame.mouse.get_pos()[0] >= 100 and pygame.mouse.get_pos()[0] <= 1180):
-                if (pygame.mouse.get_pos()[1] <= 560 and pygame.mouse.get_pos()[1] >= 500):
-                    shadow_rect = shadow_surf.get_rect(topleft = (85, 525))
-                    self.display_surface.blit(shadow_surf, shadow_rect)
-                    # if (pygame.event.get() == pygame.MOUSEBUTTONDOWN):
-                    #     print('pressed 1')
                 if (pygame.mouse.get_pos()[1] <= 650 and pygame.mouse.get_pos()[1] >= 580):
                     shadow_rect = shadow_surf.get_rect(topleft = (85, 615))
                     self.display_surface.blit(shadow_surf, shadow_rect)
                     # if (pygame.event.get() and pygame.mouse.get_pressed()):
+                    #     print('pressed 1')
+                if (buttonspresent == 2):
+                    if (pygame.mouse.get_pos()[1] <= 560 and pygame.mouse.get_pos()[1] >= 500):
+                        shadow_rect = shadow_surf.get_rect(topleft = (85, 525))
+                        self.display_surface.blit(shadow_surf, shadow_rect)
+                    # if (pygame.event.get() == pygame.MOUSEBUTTONDOWN):
                     #     print('pressed 2')
                 
                     
@@ -75,7 +76,7 @@ class Overlay:
             bg_rect = bg_surf.get_rect(topleft = OVERLAY_POSITIONS['msgboard'])
             self.display_surface.blit(bg_surf, bg_rect)
         mytext = self.myfont.render(str, True, 'white')
-        self.display_surface.blit(mytext, (120, 370 + 56 * line)) # 56 is font size + 8 for line breaks
+        self.display_surface.blit(mytext, (120, 370 + 56 * line)) # 56 is (font size + 8)
 
     def text_button(self, str, num):
         button_surf = pygame.image.load('./graphics/animations/messages/big button.png').convert_alpha()
